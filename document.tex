@@ -1,0 +1,157 @@
+\documentclass[10pt,twocolumn]{article}
+
+% use the oxycomps style file
+\usepackage{oxycomps}
+
+% usage: \fixme[comments describing issue]{text to be fixed}
+% define \fixme as not doing anything special
+\newcommand{\fixme}[2][]{#2}
+% overwrite it so it shows up as red
+\renewcommand{\fixme}[2][]{\textcolor{red}{#2}}
+% overwrite it again so related text shows as footnotes
+%\renewcommand{\fixme}[2][]{\textcolor{red}{#2\footnote{#1}}}
+
+% read references.bib for the bibtex data
+\bibliography{references}
+
+% include metadata in the generated pdf file
+\pdfinfo{
+    /Title (Git and LaTeX Worksheet)
+    /Author (Seolbin Hong)
+}
+
+% set the title and author information
+\title{Git and \LaTeX Worksheet}
+\author{Seolbin Hong}
+\affiliation{Occidental College}
+\email{shong4@oxy.edu}
+
+\begin{document}
+
+\maketitle
+
+\section{Instructions}
+
+This worksheet is due March 1, 2025 at midnight, to be submitted as a GitHub repository URL to Canvas. The repository should contain all files requires to compile this worksheet with your answers. You should only change this \texttt{document.tex} file and the  \texttt{references.bib} file; do not change any other file in this starting repository. You should not use any additional packages, and are not allowed to use the \texttt{{\textbackslash}usepackage\{\}} command. Additionally, the output should be formatted correctly: your answers should be appropriately nested under the questions, command-line commands should be in monospace, and images should be positioned appropriately.
+
+\section{Git Questions}
+
+\subsection{General questions}
+
+\begin{enumerate}
+    \item What is a version control system? Why are they useful?
+A version control system is a tool that helps us manage changes. They are useful because they allow us to go back to past versions.
+    \item What is the difference between git and GitHub?
+Git is a version control system, while GitHub is a platform that uses git.
+    \item What is a repository?
+A repository is where we can store information.
+    \item What is a commit?
+A commit changes files in a branch.
+    \item What is the commit graph?
+A commit graph is a visual representation of the versions/changes made in a project.
+    \item What is your preferred local git client (eg., command line, GitHub Desktop, GitKraken, etc.)?
+\end{enumerate}
+GitKraken.
+
+\subsection{Local Usage}
+
+\begin{enumerate}
+\item What is the difference between adding a file to the staging area and committing a file?
+Adding a file to the staging area doesn't commit the file to the project automatically. You can have many files in staging, but if you commit a file, then only that file is there.
+\item What is a commit message, and why is it important for them to be meaningful?
+A  commit message is a message that you can tag along to your commit file. It is important for them to be meaningful so that you/other collaborators can know the changes you've made and why.
+\item Starting with an empty repository, what sequence of commands/actions would result in the following commit graph? You may give a sequence of \texttt{git} commands, or describe (with screenshots) how you would do this in your preferred graphical git interface.
+git add file.txt git commit -m "commit A"
+git add file.txt git commit -m "commit B"
+git add file.txt git commit -m "commit C"
+git add file.txt git commit -m "commit D"
+\begin{verbatim}
+A---B---C---D
+\end{verbatim}
+\item If you are currently at commit D above, how would you recover code from commit B? What sequence of commands/actions would let you do so? You may give a sequence of \texttt{git} command-line commands, or describe (with screenshots) how you would do this in your preferred graphical git interface. Assume the commit hashes are AAAAAA..., BBBBBB..., etc.
+
+git restore --source=BBBBBB .
+
+\item Imagine you created a git repository for your project, but only commit your changes once a week on Sundays. You got your code working on Tuesday, but then broke your code on Friday. What can you do to get the working version of your code back?
+\end{enumerate}
+I could use git reflog to see if I can find my work on Tuesday.
+
+\subsection{Branching and Merging}
+
+\begin{enumerate}
+\item What is a branch? Why are they useful?
+A branch is an area in a project where you can experiment without changing original branch. They are useful because they allow you to experiment without fully committing the code.
+\item  Starting with an empty repository, what sequence of commands/actions would result in the following commit graph? You may give a sequence of \texttt{git} command-line commands, or describe (with screenshots) how you would do this in your preferred graphical git interface.
+git add file.txt git commit -m "commit A"
+git add file.txt git commit -m "commit B"
+git add file.txt git commit -m "commit C"
+git add file.txt git commit -m "commit D"
+git checkout B git checkout -b E
+git checkout E git checkout -b F
+\begin{verbatim}
+A---B---C---D
+     \
+      E---F
+\end{verbatim}
+\item Why is a merge? Why are they useful?
+A merge is when you combine the changes you've made in one branch to the other. They're useful because you don't have to copy and paste from one file to the next, etc.
+\item Imagine you are currently at commit D above. What sequence of commands/actions would result in the following commit graph? You may give a sequence of \texttt{git} commands, or describe (with screenshots) how you would do this in your preferred graphical git interface.
+git checkout main
+git merge F
+\begin{verbatim}
+A---B---C---D---G
+     \         /
+      E---F---/
+\end{verbatim}
+\item What is a merge conflict? When do they occur?
+A merge conflict is when git can't put the two branches together. They occur when git doesn't know which changes to keep in the merge.
+\item Starting with an empty repository, despite a sequence of commands/actions that would result in a merge conflict. Include the exact edits and \texttt{git} commands or screenshots of the graphical git interface. Include the output or screenshot that shows the resulting merge conflict.
+\end{enumerate}
+
+I made a branch off of the main file and then wrote different code on the same lines that the main had onto the branch and then tried to merge. I got an error that said that it "can't automatically merge".
+
+\subsection{Remotes}
+
+\begin{enumerate}
+\item What is a remote?
+It is a shared repository.
+\item What does pushing and pulling do?
+Pushing is when you commit your local files/changes to the remote repository. Pulling is when you want to grab files/information from the remote repository.
+\item Imagine you created a git repository for your project on your laptop and commit regularly, but only push your code to GitHub once a week on Sundays. Your laptop caught on fire on Friday. What can you do to get your code back?
+I could use git reflog to see if I can find my work on Friday and reset it to that state/clone it.
+
+
+\end{enumerate}
+
+\section{\LaTeX}
+
+Find a source of each of the following types and add it to \texttt{references.bib}, with the appropriate data. Your sources do not have to relate to your project. Looking at \textcite{OverleafBibliographyManagement} and \textcite{WikipediaBibtex} may be helpful,
+
+\begin{itemize}
+\item a journal article
+\item a conference article
+\item a PhD or Master's thesis
+\item an article in an edited popular media venue (newspaper, magazine, etc.)
+\item a book
+\item a chapter of a book
+\item a YouTube video
+\item a piece of technical documentation (e.g., a programming language reference, and API documentation, etc.)
+
+\textcite{Riordan_2005}
+\cite{LAT_2025}
+\cite{Hu_2023}
+\cite{Du_et_al}
+\cite{Chačatrjan_2016}
+\cite{Carlino_2024}
+\cite{Zhang_2018}
+
+
+\end{itemize}
+ 
+Additionally, in you own words, explain the difference between \texttt{{\textbackslash}cite\{\}} and \texttt{{\textbackslash}textcite\{\}}. When should they each be used? Demonstrate your answers by using one of them with each of your references from above.
+
+{\textbackslash}cite\{\} means that the citation will be in parentheses, while the other would be incorporated directly in the text. It depends on whether we want author names to be read.
+
+\printbibliography
+
+\end{document}
